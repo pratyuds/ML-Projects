@@ -1,5 +1,6 @@
 import os
 import sys
+sys.path.append('D:/my_projects/ML-Projects') 
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
