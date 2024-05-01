@@ -1,0 +1,151 @@
+ML Project flow steps:
+
+1. Create new repository in github
+2. Create a new project folder in a specific path in our local system
+3. Open anaconda prompt
+4. What ever we created new project folder path copy it and paste in the anaconda prompt
+5. Then it will redirecting to our project folder
+6. Type code . and hit enter
+7. Then it will open that project folder in visual studio code (vs code)
+8. In VS code open new terminal window with cmd
+9. First create a virtual environment using below command
+     conda create -p ml_env  python==3.9 -y
+10. Once done virtual environment creation need to activate the that virtual environment using below command
+    conda activate ml_env/
+11. Then need to create one README.md file in project folder and add some content there
+12. Then need to sync with github repository using below commands--
+    1. git init
+	2. git add README.md (which ever we created in local)
+	3. git commit -m "First Commit" (need to commit the initial one)
+	4. if we want tocheck the status use below command 
+	      git status
+	5. Next need to sync with git hub repo using below two commands--
+	    1. git branch -M main
+		2. Copy the github repo path sync with it in our local project folder using below command--
+		      git remote add origin https://github.com/pratyuds/ML-Projects.git
+        3. Then we can able to check it is synced or not using below command -- 
+			   git remote -v
+		4. Then need to check our gihub mail id and usename synced or not by using below command--
+		     1. git config --global user.email
+			 2. git config --global user.name
+		5. if not synced the mail id user name first sync with those details using below commands--
+		     1. git config --global user.email "pratyu.ds1117@gmail.com"
+			 2. git config --global user.name "pratyuds"
+	6. Need to push the first push using below command--
+	    1. git push -u origin main
+    7. Once the above push command given it will ask to sync the github on chrome/edge.. any thing
+	8. Need to click authenticate option
+	9. then it will authenticate with github and push the code to github repo
+	10. Then once refresh the github page we can able to see the README.md file on github repository page
+	11. Need to create .gitignore file in github page
+		1. Click on "create new file"
+		2. Write a file name as ".gitignore"
+		3. Then select the python language
+		4. Click on commit the changes with commit message like "Create .gitignore"
+	12. Then in VS code terminal using below command need to pull all the changes into vs code project folder
+			git pull
+	13. Then need to create the setup.py
+	14. Then need to create requirements.txt file for writing the required packages
+	15. Mainly setup.py will take a responsible to create our machine learning application as package.
+	    once converted into package we can able to use in current project and any other ml projects as well.
+		even if we deploy in pypy using pip we can able to install as a package.
+		
+	16. In setup.py need to give package name, version, author, author_email,packages, install requires these type of basic details need to provide and save it
+	17. Once setup.py done it will be able to find out how many packages are there and all
+	18. For that need to create one more folder like -- src
+	      1. Under src need to create __init__.py
+		  2. With respective this when ever we have setup.py from that find_packages package will go and see howmany folder you have this __init__.py
+		  3. It will directly consider this source as a package it self and then it will try to build this once it builds right 
+		       you can probably import this where ever you want. for example how we have pandas, numpy like that.
+		  4. We cannot able to create all packages in setup .py as a list.
+		  5. So , to rectify that issue,--> need to create one function on top of that like 
+				1. get_requirements("requirements.txt")
+		  6. Src folder and build the package
+    19. like this way need to flowwing structures folders
+	       1. src---->
+			   1. __init__.py
+			   2.exception.py
+			   3.logger.py
+			   4.utils.py
+		       5. components
+				   1. __init__.py
+				   2. data_ingestion.py
+				   3. data_transformation.py
+				   4.model_trainer.py
+			   6. pipeline
+					1. __init.py
+					2. predict_pipeline.py
+					3.train_pipeline.py
+		   2. templates ------>
+				1. home.html
+				2. index.html
+	20. while running the floowing folder and files will be create
+	    1. artifacts ----->
+				1. train.csv
+				2. test.csv
+				3. raw_data.csv
+				4. preprocessor.pkl
+				5. model.pkl
+				
+    21. need to create the following files
+	    1. app.py
+		2. setup.py
+		
+22. After test the application need to start the deployments
+
+AWS Deployment Configuration:
+
+23. Need to create the following files
+		1. .ebextensions------>
+			1.python.config
+    Deployment steps	
+     1. open amazon concole page
+	 2. go and search for Elastic Beanstalk (like a server or instance linux machine)
+	 3. click on elastic beanstalk
+	 4. create an application with application name
+	 5. platform --> select python
+	 6. for now select sample application option
+	 7. click on create application
+	 8. asp new application will be creeated
+	 9. go and search codePipeline (this is for Release software using continuos delivery)
+	 10. click on codepipeline (backend it will create CI pipeline as well)
+	 11. click on create pipeline
+	 12. write the pipeline name
+	 13. select servcie role as new service role
+	 14. click on allow aws codepieline to create a service role---etc
+	 15. now we will skip advance settings
+	 16. click on new
+	 17. select the github version1 as of now
+	 18. it will ask conbnection of github
+	 19. click on confirm
+	 20. select repository
+	 21. select branch
+	 22. click on next
+	 23. click on skip build stage (already we created artifacts)
+	 23. code pipeline --> select AWS Elastic BeanStalk
+	 24. select region
+	 25. select applicationname which we one previously created
+	 26. select environemnt as well
+	 27. click on next
+	 28. need to check all the details steps flow--->
+	     1. pipeline settings
+		 2. add source stage (source action provider) (github selection setup)
+		 3. ifb added build stage need to check that one as well (build action provider)
+		 4. add deploy stage (deploy action provider)
+		 5. after check click on create pipeline
+		 6. after deployment success-->
+		     1. click on under deploy click on aws elastic benchstalk
+			 2. it will go to the application environment page
+			 3. there it will display it will provide one url under url section
+			 4. once the page got open our deployment will be successeded
+	
+		
+	29. further if we want to do any changes in any file.
+	30. after that changes need to commit those files
+	31. it will automatically shows the commit progress changes in code pipeline deployment
+	32. then click on release change --> click on release
+	33. then it will automaticallly deploy the commit changes
+	
+				
+
+AZURE Deployment Configuration:		
